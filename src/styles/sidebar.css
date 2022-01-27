@@ -1,0 +1,23 @@
+.sidebar {
+  height: 100%;
+  /* font-family: 'Quicksand', Arial, Helvetica, sans-serif;
+  position: absolute;
+  left: 0;
+  z-index: 999;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  border: 1px solid black; */
+}
+
+.lista {
+  text-decoration: none;
+  color: #292811;
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  text-decoration: none;
+  color: #292811;
+}

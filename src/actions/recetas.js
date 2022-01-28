@@ -1,19 +1,22 @@
 import { types } from '../types/types'
 import Swal from 'sweetalert2';
-import { fetchConToken, fetchSinToken } from '../helpers/fetch';
+import { fetchConToken } from '../helpers/fetch';
 import { finishSavingSomething, startLoading, startSavingSomething } from './ui';
 import { fileUpload } from '../helpers/fileUpload';
 
-export const startLoadingAnuncios = () => {
-    return async (dispatch) => {
+export const startLoadingRecetas = () => {
+    return async (dispatch, getState) => {
 
         dispatch(startLoading())
 
-        const resp = await fetchSinToken('anuncios');
+        const uid = getState().auth.uid;
+        const rol = getState().auth.rol;
+
+        const resp = rol === 'user' ? await fetchConToken(`recetas/admin/${uid}`) : await fetchConToken(`recetas`);
         const body = await resp.json();
 
         if (body.ok) {
-            dispatch(saveAnuncios(body.anuncios))
+            dispatch(saveRecetas(body.recetas))
         } else {
             Swal.fire('Error', body.msg, 'error');
         }
@@ -22,45 +25,45 @@ export const startLoadingAnuncios = () => {
     }
 }
 
-const saveAnuncios = (data) => ({
-    type: types.saveAnuncios,
+const saveRecetas = (data) => ({
+    type: types.saveRecetas,
     payload: data
 })
 
-export const startUpload = (file) => {
-    return async (dispatch) => {
+// export const startUpload = (file) => {
+//     return async (dispatch) => {
 
-        const guardado = await fileUpload(file);
+//         const guardado = await fileUpload(file);
 
-        const { url, nombre } = guardado;
+//         const { url, nombre } = guardado;
 
-        dispatch(saveImageAnuncioActive(url, nombre))
+//         dispatch(saveImageRecetaActive(url, nombre))
 
-    }
-}
+//     }
+// }
 
-const saveImageAnuncioActive = (url, nombre) => ({
-    type: types.saveImageAnuncioActive,
-    payload: {
-        url,
-        nombre
-    }
-})
+// const saveImageRecetaActive = (url, nombre) => ({
+//     type: types.saveImageAnuncioActive,
+//     payload: {
+//         url,
+//         nombre
+//     }
+// })
 
-export const startSaveAnuncio = (titulo, descripcion, link) => {
+export const startSaveReceta = (titulo, descripcion, link) => {
     return async (dispatch, getState) => {
 
         dispatch(startSavingSomething())
 
         const { imagen, tituloImagen } = getState().anuncios.active;
 
-        const resp = await fetchConToken('anuncios', { titulo: titulo, descripcion: descripcion, imagen: imagen, tituloImagen: tituloImagen, link: link }, 'POST');
+        const resp = await fetchConToken('recetas', { titulo: titulo, descripcion: descripcion, imagen: imagen, tituloImagen: tituloImagen, link: link }, 'POST');
         const body = await resp.json();
 
         if (body.ok) {
             Swal.fire({
                 icon: 'success',
-                title: 'Anuncio guardado exitosamente',
+                title: 'Receta guardado exitosamente',
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -73,13 +76,13 @@ export const startSaveAnuncio = (titulo, descripcion, link) => {
             })
         }
 
-        dispatch(resetAnuncios())
+        dispatch(resetRecetas())
         dispatch(finishSavingSomething())
 
     }
 }
 
-export const startDeleteAnuncio = (id) => {
+export const startDeleteReceta = (id) => {
 
 
     return async (dispatch) => {
@@ -108,21 +111,43 @@ export const startDeleteAnuncio = (id) => {
     }
 }
 
-export const startUplaodAnuncio = (titulo, descripcion, link = '') => {
+export const startUplaodReceta = (value) => {
     return async (dispatch, getState) => {
 
 
         dispatch(startSavingSomething())
 
-        const { id, tituloImagen, imagen } = getState().anuncios.active;
+        const { id } = getState().recetas.active;
+        const { uid } = getState().auth.uid;
 
-        const resp = await fetchConToken(`anuncios/${id}`, { titulo: titulo, descripcion: descripcion, tituloImagen: tituloImagen, imagen: imagen, link: link }, 'PUT');
+        const {
+            titulo,
+            descripcion,
+            ingredientes,
+            tiempo,
+            procedimiento,
+            etiquetas,
+            tipo,
+            ocacion
+        } = value;
+
+        const resp = await fetchConToken(`recetas/${id}`, {
+            titulo,
+            descripcion,
+            ingredientes,
+            tiempo,
+            procedimiento,
+            etiquetas,
+            tipo,
+            ocacion,
+            uid
+        }, 'PUT');
         const body = await resp.json();
 
         if (body.ok) {
             Swal.fire({
                 icon: 'success',
-                title: 'Anuncio actualizado exitosamente',
+                title: 'Receta actualizada exitosamente',
                 showConfirmButton: false,
                 timer: 1500
             })
@@ -135,18 +160,18 @@ export const startUplaodAnuncio = (titulo, descripcion, link = '') => {
             })
         }
 
-        dispatch(resetAnuncios())
+        dispatch(resetRecetas())
         dispatch(finishSavingSomething())
 
     }
 }
 
-export const changeStatusAnuncio = (id, status) => {
+export const changeStatusReceta = (id, status) => {
     return async (dispatch) => {
 
         dispatch(startSavingSomething())
 
-        const resp = await fetchConToken(`anuncios/${id}`, { status: !status }, 'PUT')
+        const resp = await fetchConToken(`recetas/${id}`, { status: !status }, 'PUT')
         const body = await resp.json()
 
         if (!body.ok) {
@@ -163,9 +188,9 @@ export const changeStatusAnuncio = (id, status) => {
     }
 }
 
-export const startSetAnuncioActive = (anuncio) => ({
-    type: types.setActiveAnuncio,
-    payload: anuncio
+export const startSetRecetaActive = (receta) => ({
+    type: types.setActiveReceta,
+    payload: receta
 })
 
-export const resetAnuncios = () => ({ type: types.resetAnuncios })
+export const resetRecetas = () => ({ type: types.resetAnuncios })

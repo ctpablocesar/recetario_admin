@@ -451,3 +451,10 @@ body::-webkit-scrollbar-thumb {
   background-color: #68a468;
   background-color: #5a9759;
 }
+
+.error_404{
+  color: red;
+  font-size: 6rem;
+  text-align: center;
+  margin-top: 5rem;
+}

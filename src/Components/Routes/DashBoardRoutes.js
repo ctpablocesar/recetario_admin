@@ -4,14 +4,12 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { Navbar } from '../Ui/Navbar';
 import { Footer } from '../Ui/Footer';
 
-import { CalendarioEscolar } from '../Secciones/CalendarioEscolar/CalendarioEscolar';
-import { FraseInicio } from '../Secciones/FraseInicio/FraseInicio';
-import { Galeria } from '../Secciones/Galeria/Galeria';
-import { Noticias } from '../Secciones/Noticias/Noticias';
 import { Contacto } from '../Secciones/Contacto/Contacto';
-import { Anuncios } from '../Secciones/Anuncios/Anuncios';
+import { Recetas } from '../Secciones/Recetas/Recetas';
 
 import '../../styles/dasboard.css'
+import { Error } from '../Secciones/Error';
+import { EditReceta } from '../Secciones/Recetas/EditReceta';
 
 export const DashBoardRoutes = ({ history }) => {
 
@@ -22,13 +20,10 @@ export const DashBoardRoutes = ({ history }) => {
             </header>
             <article className="content">
                 <Switch>
-                    <Route path="/admin/calendario" component={CalendarioEscolar} />
-                    <Route path="/admin/frase" component={FraseInicio} />
-                    <Route path="/admin/galeria" component={Galeria} />
-                    <Route path="/admin/noticias" component={Noticias} />
-                    <Route path="/admin/contacto" component={Contacto} />
-                    <Route exact path="/admin/anuncios" component={Anuncios} />
-                    <Redirect to="/admin/anuncios" />
+                    <Route exact path='/editar' component={EditReceta} />
+                    <Route exact path="/contacto" component={Contacto} />
+                    <Route exact path="/recetas" component={Recetas} />
+                    <Route exact path="*" component={Error} />
                 </Switch >
             </article>
             <footer className="main-footer">

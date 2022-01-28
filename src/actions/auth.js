@@ -12,9 +12,7 @@ export const startLogin = (email, password) => {
             localStorage.setItem('token', body.token);
             localStorage.setItem('token-init-date', new Date().getTime());
 
-            dispatch(Login({
-                uid: body.uid
-            }))
+            dispatch(Login(body))
 
             Swal.fire({
                 icon: 'success',
@@ -32,7 +30,10 @@ export const startLogin = (email, password) => {
 
 const Login = (user) => ({
     type: types.login,
-    payload: user
+    payload: {
+        uid: user.uid,
+        rol: user.rol
+    }
 });
 
 export const startChecking = () => {

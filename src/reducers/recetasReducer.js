@@ -1,19 +1,19 @@
 import { types } from '../types/types'
 
 const initialState = {
-    anuncios: [],
+    recetas: [],
     active: {}
 }
 
-export const anunciosReducer = (state = initialState, action) => {
+export const recetasReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case types.saveAnuncios:
+        case types.saveRecetas:
             return {
                 ...state,
-                anuncios: action.payload
+                recetas: action.payload
             }
-        case types.saveImageAnuncioActive:
+        case types.saveImageRecetaActive:
             return {
                 ...state,
                 active: {
@@ -22,7 +22,7 @@ export const anunciosReducer = (state = initialState, action) => {
                     tituloImagen: action.payload.nombre
                 }
             }
-        case types.resetAnuncios:
+        case types.resetRecetas:
             return {
                 ...state,
                 active: {
@@ -30,7 +30,7 @@ export const anunciosReducer = (state = initialState, action) => {
                     tituloImagen: ''
                 }
             }
-        case types.setActiveAnuncio:
+        case types.setActiveReceta:
             return {
                 ...state,
                 active: action.payload

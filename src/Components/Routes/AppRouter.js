@@ -37,7 +37,7 @@ export const AppRouter = () => {
                         component={LoginScreen}
                     />
                     <PrivateRoute
-                        path="/admin"
+                        path="/"
                         isAuthenticated={!!uid}
                         component={DashBoardRoutes}
                     />

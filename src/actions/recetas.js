@@ -82,19 +82,20 @@ export const startSaveReceta = (titulo, descripcion, link) => {
     }
 }
 
-export const startDeleteReceta = (id) => {
+export const startDeleteReceta = (data) => {
 
+    const {uid, id} = data;
 
     return async (dispatch) => {
         dispatch(startSavingSomething())
 
-        const resp = await fetchConToken(`anuncios/${id}`, null, 'DELETE');
+        const resp = await fetchConToken(`anuncios/${id}`, uid, 'DELETE');
         const body = await resp.json();
 
         if (body.ok) {
             Swal.fire({
                 icon: 'success',
-                title: 'Anuncio eliminado exitosamente',
+                title: 'Receta eliminado exitosamente',
                 showConfirmButton: false,
                 timer: 1500
             })

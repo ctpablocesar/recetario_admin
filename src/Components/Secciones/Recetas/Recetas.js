@@ -19,36 +19,17 @@ export const Recetas = () => {
         dispatch(startLoadingRecetas())
     }, [saving]);
 
-    const handleSaveReceta = (e) => {
-        e.preventDefault()
-        const titulo = e.target.titulo.value;
-        const desc = e.target.descripcion.value;
-        const link = e.target.link.value;
-        if (active.id) {
-            setTimeout(() => {
-                dispatch(startUplaodReceta(titulo, desc, link))
-                // handleClose()
-                // setTitulo('')
-            }, 2000);
-        } else {
-            setTimeout(() => {
-                dispatch(startSaveReceta(titulo, desc, link))
-                // handleClose()
-                // setTitulo('')
-            }, 2000);
-        }
-    }
-
-    const handleDelete = (id) => {
-        dispatch(startDeleteReceta(id))
+    const handleDelete = (id,uid) => {
+        dispatch(startDeleteReceta(id,uid))
     }
 
     const handleEdit = (receta) => {
         dispatch(startSetRecetaActive(receta));
     }
 
-    const handleChangeStatus = (id, status) => {
-        dispatch(changeStatusReceta(id, status))
+    const handleChangeStatus = (id, status, uid) => {
+        dispatch(changeStatusReceta(id, status, uid))
+        dispatch(startLoadingRecetas())
     }
 
     return (
@@ -57,7 +38,7 @@ export const Recetas = () => {
                 <div className="titulos">
                     <h1 className="seccion animate__animated animate__bounceInDown">Mis Recetas</h1>
                     {/* <button type="button" className="btn btn-success btn-add" onClick={handleOpen}>+ Agregar Anuncio</button> */}
-                    <Link className="btn btn-success btn-add" to='/admin/editar'>+ Agregar receta</Link>
+                    <Link className="btn btn-success btn-add" to='/agregar'>+ Agregar receta</Link>
                 </div>
                 <div className=" cards-responsivas w-100 row justify-content-md-center">
 
@@ -70,15 +51,6 @@ export const Recetas = () => {
                             :
                             <h1 className='sinContenido'>No hay recetas para mostrar</h1>
                     }
-
-                    {/* <Modal
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="simple-modal-title"
-                        aria-describedby="simple-modal-description"
-                    >
-                        
-                    </Modal> */}
 
                 </div>
             </div>

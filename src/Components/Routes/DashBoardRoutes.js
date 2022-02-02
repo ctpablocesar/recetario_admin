@@ -10,6 +10,7 @@ import { Recetas } from '../Secciones/Recetas/Recetas';
 import '../../styles/dasboard.css'
 import { Error } from '../Secciones/Error';
 import { EditReceta } from '../Secciones/Recetas/EditReceta';
+import { AddReceta } from '../Secciones/Recetas/AddReceta';
 
 export const DashBoardRoutes = ({ history }) => {
 
@@ -23,7 +24,8 @@ export const DashBoardRoutes = ({ history }) => {
                     <Route exact path='/editar' component={EditReceta} />
                     <Route exact path="/contacto" component={Contacto} />
                     <Route exact path="/recetas" component={Recetas} />
-                    <Route exact path="*" component={Error} />
+                    <Route exact path="/agregar" component={AddReceta} />
+                    <Route path="*" component={Error} />
                 </Switch >
             </article>
             <footer className="main-footer">

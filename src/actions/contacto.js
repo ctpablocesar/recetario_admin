@@ -4,12 +4,16 @@ import Swal from 'sweetalert2';
 import { finishLoading, finishSavingSomething, startLoading, startSavingSomething } from "./ui"
 
 export const startLoadingMensajes = () => {
-    return async (dispatch) => {
+    return async (dispatch,getState) => {
+
+        const uid = getState().auth.uid;
 
         dispatch(startLoading())
 
-        const resp = await fetchSinToken('contacto')
+        const resp = await fetchConToken(`contacto/${uid}`);
         const body = await resp.json()
+
+        console.log(body);
 
         if (body.ok) {
             dispatch(saveMensajes(body.contacto))

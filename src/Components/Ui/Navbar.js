@@ -4,10 +4,13 @@ import '../../styles/administracion.css';
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { startLogout } from '../../actions/auth';
+import { useSelector } from 'react-redux';
 
 export const Navbar = () => {
 
     const dispatch = useDispatch();
+
+    const rol = useSelector(state => state.auth.rol);
 
     const [abrir, setAbrir] = useState(false);
 
@@ -34,27 +37,31 @@ export const Navbar = () => {
 
 
                 <div className=" text-center collapse navbar-collapse" id="navbarSupportedContent-3">
-                    <div className="text-center alinearlinks">
-                        <ul className="navbar-nav mr-auto">
-                            <li className="nav-item dropdown">
-                                <span className="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Secciones
-                                </span>
-                                <div className="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-3">
-                                    <Link className="dropdown-item waves-effect waves-light" to='/admin/anuncios'>Anuncios</Link>
-                                    <Link className="dropdown-item waves-effect waves-light" to='/admin/calendario'>Calendario Escolar</Link>
-                                    <Link className="dropdown-item waves-effect waves-light" to='/admin/frase'>Frase Inicio</Link>
-                                    <Link className="dropdown-item waves-effect waves-light" to='/admin/galeria'>Galería</Link>
-                                    <Link className="dropdown-item waves-effect waves-light" to='/admin/noticias'>Noticias</Link>
-                                    <Link className="dropdown-item waves-effect waves-light" to='/admin/contacto'>Contacto</Link>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
                     <ul className="navbar-nav ml-auto nav-flex-icons">
                         <li className="nav-item">
-                            <span className="nav-link waves-effect waves-light logout" onClick={handleLogout}>
-                                <i className="fas fa-sign-out-alt"></i> Cerrar Sesión
-                            </span>
+                            <Link className='btn diseño-active' to='/recetas'>
+                                <span className="nav-link">
+                                    Recetas
+                                </span>
+                            </Link>
+                            {
+                                rol === 'admin'
+                                &&
+                                <Link className="btn diseño-active" to='/contacto'>
+                                    <span className="nav-link waves-effect waves-light logout">
+                                        Contacto
+                                    </span>
+                                </Link>
+                            }
+                        </li>
+                    </ul>
+                    <ul className="navbar-nav ml-auto nav-flex-icons">
+                        <li className="nav-item">
+                            <div className="btn diseño-active">
+                                <span className="nav-link waves-effect waves-light logout" onClick={handleLogout}>
+                                    <i className="fas fa-sign-out-alt"></i> Cerrar Sesión
+                                </span>
+                            </div>
                         </li>
                     </ul>
                 </div>

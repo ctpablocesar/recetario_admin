@@ -256,6 +256,19 @@ body::-webkit-scrollbar-thumb {
 
 /*Navbar*/
 
+.diseño-active {
+  background-color: #447044;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  margin: .6rem;
+  border: 1px solid ;
+}
+
+.diseño-active:hover {
+  background-color: #91bc91;
+  border: 1px solid lightgray;
+}
+
 .logout:hover, #navbarDropdownMenuLink-3:hover {
   cursor: pointer;
 }

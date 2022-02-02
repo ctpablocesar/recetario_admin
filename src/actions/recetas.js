@@ -10,9 +10,11 @@ export const startLoadingRecetas = () => {
         dispatch(startLoading())
 
         const uid = getState().auth.uid;
-        const rol = getState().auth.rol;
+        const rol = getState().auth.rol.toString();
 
-        const resp = rol === 'user' ? await fetchConToken(`recetas/admin/${uid}`) : await fetchConToken(`recetas`);
+        console.log(rol);
+
+        const resp = rol === 'admin' ? await fetchConToken(`recetas/`, uid) : await fetchConToken(`recetasPorUsuario/${uid}`);
         const body = await resp.json();
 
         if (body.ok) {
@@ -50,14 +52,32 @@ const saveRecetas = (data) => ({
 //     }
 // })
 
-export const startSaveReceta = (titulo, descripcion, link) => {
-    return async (dispatch, getState) => {
+export const startSaveReceta = (value, tiempo, ocacion, uid) => {
+    return async (dispatch) => {
 
         dispatch(startSavingSomething())
 
-        const { imagen, tituloImagen } = getState().anuncios.active;
+        const { titulo, descripcion, ingredientes, procedimiento } = value;
 
-        const resp = await fetchConToken('recetas', { titulo: titulo, descripcion: descripcion, imagen: imagen, tituloImagen: tituloImagen, link: link }, 'POST');
+        // console.log(
+        //     titulo,
+        //     descripcion,
+        //     ingredientes,
+        //     tiempo,
+        //     procedimiento,
+        //     ocacion,
+        //     uid
+        // );
+
+        const resp = await fetchConToken('recetas', {
+            titulo,
+            descripcion,
+            ingredientes,
+            tiempo,
+            procedimiento,
+            ocacion,
+            uid
+        }, 'POST');
         const body = await resp.json();
 
         if (body.ok) {
@@ -82,14 +102,15 @@ export const startSaveReceta = (titulo, descripcion, link) => {
     }
 }
 
-export const startDeleteReceta = (data) => {
-
-    const {uid, id} = data;
+export const startDeleteReceta = (id,uid) => {
 
     return async (dispatch) => {
+
+        console.log(id,uid);
+
         dispatch(startSavingSomething())
 
-        const resp = await fetchConToken(`anuncios/${id}`, uid, 'DELETE');
+        const resp = await fetchConToken(`recetas/${id}/${uid}`,'', 'DELETE');
         const body = await resp.json();
 
         if (body.ok) {
@@ -112,20 +133,20 @@ export const startDeleteReceta = (data) => {
     }
 }
 
-export const startUplaodReceta = (value) => {
+export const startUplaodReceta = (value, uid) => {
     return async (dispatch, getState) => {
 
 
         dispatch(startSavingSomething())
 
-        const { id } = getState().recetas.active;
-        const { uid } = getState().auth.uid;
+        const { tiempo, id } = getState().recetas.active;
+
+        console.log(uid);
 
         const {
             titulo,
             descripcion,
             ingredientes,
-            tiempo,
             procedimiento,
             etiquetas,
             tipo,
@@ -167,12 +188,12 @@ export const startUplaodReceta = (value) => {
     }
 }
 
-export const changeStatusReceta = (id, status) => {
+export const changeStatusReceta = (id, status, uid) => {
     return async (dispatch) => {
 
         dispatch(startSavingSomething())
 
-        const resp = await fetchConToken(`recetas/${id}`, { status: !status }, 'PUT')
+        const resp = await fetchConToken(`recetas/${id}`, { status: !status, uid }, 'PUT')
         const body = await resp.json()
 
         if (!body.ok) {

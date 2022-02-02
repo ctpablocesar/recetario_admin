@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { startLoadingRecetas, startUplaodReceta } from '../../../actions/recetas';
+import { startLoadingRecetas, startSaveReceta, startUplaodReceta } from '../../../actions/recetas';
 import { useForm } from '../../../hooks/useForm';
 
-export const EditReceta = () => {
+export const AddReceta = () => {
 
     const dispatch = useDispatch();
 
@@ -12,9 +12,9 @@ export const EditReceta = () => {
 
     const [tiempo, setTiempo] = useState(active.tiempo);
 
-    const uid = useSelector(state => state.auth.uid);
-
     const [ocacion, setOcacion] = useState(active.ocacion);
+
+    const uid = useSelector(state => state.auth.uid);
 
     const [vacia, setVacia] = useState(true);
 
@@ -23,23 +23,13 @@ export const EditReceta = () => {
         descripcion: '',
         ingredientes: '',
         procedimiento: '',
+        tipo: ''
     });
 
-    useEffect(() => {
-        active && setValue({
-            titulo: active.titulo,
-            descripcion: active.descripcion,
-            ingredientes: active.ingredientes,
-            tiempo: active.timepo,
-            procedimiento: active.procedimiento,
-            ocacion: active.ocacion
-        })
-    }, [active])
-
-    const upLoadReceta = (e) => {
+    const saveReceta = (e) => {
         e.preventDefault()
         setTimeout(() => {
-            dispatch(startUplaodReceta(value,uid))
+            dispatch(startSaveReceta(value,tiempo,ocacion,uid))
             exit()
         }, 2000);
     }
@@ -76,13 +66,13 @@ export const EditReceta = () => {
 
         <div>
             <div className="titulos">
-                <h1 className="seccion animate__animated animate__bounceInDown">Editar receta</h1>
+                <h1 className="seccion animate__animated animate__bounceInDown">Agregar receta</h1>
             </div>
 
             <div className=" justify-content-center modal-dialog-centered">
 
 
-                <form className='col-sm-10' onSubmit={upLoadReceta}>
+                <form className='col-sm-10' onSubmit={saveReceta}>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Titulo:</label>
                         <input
@@ -148,7 +138,7 @@ export const EditReceta = () => {
                         />
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Ocacion:</label>
+                        <label for="exampleFormControlSelect1">Tipo:</label>
                         <select class="form-control" id="ocacion" name='ocacion' value={ocacion} onChange={handleChangeOcacion}>
                             <option value="desayuno">Desayuno</option>
                             <option value="comida">Comida</option>
@@ -156,7 +146,7 @@ export const EditReceta = () => {
                         </select>
                     </div>
                     <center>
-                        < button type="submit" className='btn btn-success' >Actualizar</button>
+                        < button type="submit" className='btn btn-success' >Guardar</button>
                         &nbsp;&nbsp;
                         <Link className="btn btn-danger" to='/recetas'>Cancelar</Link>
                     </center>

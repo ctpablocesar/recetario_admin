@@ -1,4 +1,4 @@
-import logo from './img/logo-est-19.jpeg';
+import logo from './img/Recetario-sinfondo.png';
 import patio from './img/patio.jpeg';
 import diaPadre from './img/diaPadre.jpg';
 import entrada from './img/entrada.jpeg';

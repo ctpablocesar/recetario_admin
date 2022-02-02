@@ -39,7 +39,7 @@ export const LoginScreen = () => {
                             onSubmit={handleLogin}
                         >
                             <div className='titulo-datos-login'>
-                                <p>TODO: poner logo</p>
+                                <img src={images.logo} alt="logo" className="navbar-brand logoimg" height="90" />
                             </div>
                             <label>Correo Electrónico:</label>
                             <input

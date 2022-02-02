@@ -29,9 +29,9 @@ export const LoginScreen = () => {
             <div className='container-login'>
                 <div className='form-login'>
                     <div className="titulos-login">
-                        <span>Administración</span>
+                        <span>Iniciar sesión</span>
                         <i></i>
-                        <p>Portal EST 19</p>
+                        <p>Recetario S2C</p>
                     </div>
                     <div className="datos-login">
                         <form
@@ -39,7 +39,7 @@ export const LoginScreen = () => {
                             onSubmit={handleLogin}
                         >
                             <div className='titulo-datos-login'>
-                                <p>Iniciar Sesión</p>
+                                <p>TODO: poner logo</p>
                             </div>
                             <label>Correo Electrónico:</label>
                             <input

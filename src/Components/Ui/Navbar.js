@@ -23,7 +23,7 @@ export const Navbar = () => {
         <div className='navbar2'>
             <nav className="mb-1 navbar navbar-expand-lg navbar-dark default-color">
                 <div className="text-center logotext">
-                    <img src={images.logo} alt="logo" className="navbar-brand logoimg" height="90" /><br />Panel de administración
+                    <img src={images.logo} alt="logo" className="navbar-brand logoimg" height="90" /><br />Recetario S2C
                 </div>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-3" aria-controls="navbarSupportedContent-3" aria-expanded="false" aria-label="Toggle navigation" onClick={() => setAbrir(!abrir)}>
                     {

@@ -8,7 +8,7 @@ export const Footer = () => {
       <p className="text-center mt-4 wow fadeIn">
         <span className="fg-white">
           Copyright &copy; 2021{" "}
-          <span className="footer-text"> E.S.T. 19.</span>Todos los
+          <span className="footer-text"> Recetario S2C</span>Todos los
           derechos reservados</span>
       </p>
     </div>

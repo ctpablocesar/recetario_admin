@@ -471,3 +471,10 @@ body::-webkit-scrollbar-thumb {
   text-align: center;
   margin-top: 5rem;
 }
+
+
+/* Error  */
+
+.btn-error{
+  color: white;
+}

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
+import ReCAPTCHA from "react-google-recaptcha";
+
 import { useDispatch } from 'react-redux'
 import { startLogin } from '../../actions/auth'
-
 import '../../styles/administracion.css'
 import '../../styles/dasboard.css'
 import { images } from '../../Resources/resources'
@@ -10,6 +11,8 @@ import { useForm } from '../../hooks/useForm'
 export const LoginScreen = () => {
 
     const dispatch = useDispatch();
+
+    const [captcha, setCaptcha] = useState(false);
 
     const [formValues, handleInputChange] = useForm({
         email: '',
@@ -21,6 +24,12 @@ export const LoginScreen = () => {
     const handleLogin = (e) => {
         e.preventDefault();
         dispatch(startLogin(email, password));
+    }
+
+    const onChange = (value) => {
+        if (value) {
+            setCaptcha(true);
+        }
     }
 
     return (
@@ -39,7 +48,7 @@ export const LoginScreen = () => {
                             onSubmit={handleLogin}
                         >
                             <div className='titulo-datos-login'>
-                                <img src={images.logo} alt="logo" className="navbar-brand logoimg" height="90" />
+                                <img src={images.logo} alt="logo" className="navbar-brand logoimg" height="70" />
                             </div>
                             <label>Correo Electrónico:</label>
                             <input
@@ -49,6 +58,7 @@ export const LoginScreen = () => {
                                 autoComplete="off"
                                 value={email}
                                 onChange={handleInputChange}
+                                required
                             />
                             <label>Contraseña:</label>
                             <input
@@ -56,9 +66,23 @@ export const LoginScreen = () => {
                                 name="password"
                                 className="inputs-login"
                                 value={password}
-                                onChange={handleInputChange}
+                                onChange={handleInputChange }
+                                required
                             />
-                            <input type="submit" value="Ingresar" className='btn-login m-4' />
+
+                            {
+                                !captcha
+                                    ?
+                                    <ReCAPTCHA
+                                        className='mt-3'
+                                        sitekey="6Lc5gVMeAAAAAPffL8GRfCszHkH2UXvgHqMjq65L"
+                                        onChange={onChange}
+                                    />
+                                    :
+                                    <input type="submit" value="Ingresar" className='btn-login m-4' />
+
+                            }
+
                         </form>
                     </div>
                 </div>

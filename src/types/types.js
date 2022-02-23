@@ -17,6 +17,10 @@ export const types = {
     saveImageRecetaActive: '[recetas] Guardando la imagen del anuncio',
     resetrecetas: '[recetas] Formateando recetas',
     deleteReceta: '[recetas] Eliminar un receta',
+
+    saveImages: '[galeria] Guardando imagen',
+    saveActiveImage: '[galeria] Guardando imagen activa',
+    resetActiveImage: '[galeria] Formateando galeria',
     
     saveMensajes: '[contacto] Guardando mensaje',
 }

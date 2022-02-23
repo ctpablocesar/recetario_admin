@@ -47,11 +47,18 @@ export const Navbar = () => {
                             {
                                 rol === 'admin'
                                 &&
-                                <Link className="btn diseño-active" to='/contacto'>
-                                    <span className="nav-link waves-effect waves-light logout">
-                                        Contacto
-                                    </span>
-                                </Link>
+                                <>
+                                    <Link className="btn diseño-active" to='/contacto'>
+                                        <span className="nav-link waves-effect waves-light logout">
+                                            Contacto
+                                        </span>
+                                    </Link>
+                                    <Link className="btn diseño-active" to='/galeria'>
+                                        <span className="nav-link waves-effect waves-light logout">
+                                            Galeria
+                                        </span>
+                                    </Link>
+                                </>
                             }
                         </li>
                     </ul>

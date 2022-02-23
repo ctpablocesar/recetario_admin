@@ -1,9 +1,9 @@
 export const fileUpload = async (file) => {
 
-    const cloudUrl = 'https://api.cloudinary.com/v1_1/papa-dev/upload';
+    const cloudUrl = 'https://api.cloudinary.com/v1_1/drax2d1vi/upload';
 
     const formData = new FormData();
-    formData.append('upload_preset', 'portal-est-19')
+    formData.append('upload_preset', 'Recetario')
     formData.append('file', file);
 
     try {

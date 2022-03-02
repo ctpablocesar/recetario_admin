@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 import { startLogout } from '../../actions/auth';
@@ -12,17 +11,7 @@ export const Navbar = () => {
 
     const rol = useSelector(state => state.auth.rol);
 
-    const checking = useSelector(state => state.ui.checking);
-
     const [abrir, setAbrir] = useState(false);
-
-    const [admin, setAdmin] = useState(false);
-
-    useEffect(() => {
-        if (rol === 'admin') {
-            setAdmin(true);
-        }
-    }, [checking])
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -55,7 +44,7 @@ export const Navbar = () => {
                                 </span>
                             </Link>
                             {
-                                admin === 'admin'
+                                rol === 'admin'
                                 &&
                                 <>
                                     <Link className="btn diseño-active" to='/contacto'>

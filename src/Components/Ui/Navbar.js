@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
+import { startLogout } from '../../actions/auth';
 import { images } from '../../Resources/resources';
 import '../../styles/administracion.css';
-import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { startLogout } from '../../actions/auth';
-import { useSelector } from 'react-redux';
 
 export const Navbar = () => {
 
@@ -12,7 +12,17 @@ export const Navbar = () => {
 
     const rol = useSelector(state => state.auth.rol);
 
+    const checking = useSelector(state => state.ui.checking);
+
     const [abrir, setAbrir] = useState(false);
+
+    const [admin, setAdmin] = useState(false);
+
+    useEffect(() => {
+        if (rol === 'admin') {
+            setAdmin(true);
+        }
+    }, [checking])
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -45,7 +55,7 @@ export const Navbar = () => {
                                 </span>
                             </Link>
                             {
-                                rol === 'admin'
+                                admin === 'admin'
                                 &&
                                 <>
                                     <Link className="btn diseño-active" to='/contacto'>
@@ -56,6 +66,11 @@ export const Navbar = () => {
                                     <Link className="btn diseño-active" to='/galeria'>
                                         <span className="nav-link waves-effect waves-light logout">
                                             Galeria
+                                        </span>
+                                    </Link>
+                                    <Link className="btn diseño-active" to='/correos'>
+                                        <span className="nav-link waves-effect waves-light logout">
+                                            Correos
                                         </span>
                                     </Link>
                                 </>

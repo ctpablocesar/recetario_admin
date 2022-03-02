@@ -23,4 +23,7 @@ export const types = {
     resetActiveImage: '[galeria] Formateando galeria',
     
     saveMensajes: '[contacto] Guardando mensaje',
+
+    saveCorreos: '[correos] Guardando correos',
+    setEliminados: '[correos] Guardando correos activos',
 }

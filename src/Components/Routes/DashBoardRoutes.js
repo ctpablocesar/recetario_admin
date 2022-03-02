@@ -12,6 +12,7 @@ import { Error } from '../Secciones/Error';
 import { EditReceta } from '../Secciones/Recetas/EditReceta';
 import { AddReceta } from '../Secciones/Recetas/AddReceta';
 import { Galeria } from '../Secciones/Galeria/Galeria';
+import { Correos } from '../Secciones/Correos/Correos';
 
 export const DashBoardRoutes = ({ history }) => {
 
@@ -27,6 +28,7 @@ export const DashBoardRoutes = ({ history }) => {
                     <Route exact path="/recetas" component={Recetas} />
                     <Route exact path="/agregar" component={AddReceta} />
                     <Route exact path="/galeria" component={Galeria} />
+                    <Route exact path='/correos' component={Correos} />
                     <Route path="*" component={Error} />
                 </Switch >
             </article>

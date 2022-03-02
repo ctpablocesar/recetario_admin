@@ -12,8 +12,6 @@ export const startLoadingRecetas = () => {
         const uid = getState().auth.uid;
         const rol = getState().auth.rol.toString();
 
-        console.log(rol);
-
         const resp = rol === 'admin' ? await fetchConToken(`recetas/`, uid) : await fetchConToken(`recetasPorUsuario/${uid}`);
         const body = await resp.json();
 
@@ -32,25 +30,6 @@ const saveRecetas = (data) => ({
     payload: data
 })
 
-// export const startUpload = (file) => {
-//     return async (dispatch) => {
-
-//         const guardado = await fileUpload(file);
-
-//         const { url, nombre } = guardado;
-
-//         dispatch(saveImageRecetaActive(url, nombre))
-
-//     }
-// }
-
-// const saveImageRecetaActive = (url, nombre) => ({
-//     type: types.saveImageAnuncioActive,
-//     payload: {
-//         url,
-//         nombre
-//     }
-// })
 
 export const startSaveReceta = (value, tiempo, ocacion, uid) => {
     return async (dispatch) => {
@@ -58,16 +37,6 @@ export const startSaveReceta = (value, tiempo, ocacion, uid) => {
         dispatch(startSavingSomething())
 
         const { titulo, descripcion, ingredientes, procedimiento } = value;
-
-        // console.log(
-        //     titulo,
-        //     descripcion,
-        //     ingredientes,
-        //     tiempo,
-        //     procedimiento,
-        //     ocacion,
-        //     uid
-        // );
 
         const resp = await fetchConToken('recetas', {
             titulo,

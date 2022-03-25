@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
+import { useDispatch } from 'react-redux';
+import { startLogin } from '../../actions/auth';
+import { useForm } from '../../hooks/useForm';
+import { images } from '../../Resources/resources';
+import '../../styles/administracion.css';
+import '../../styles/dasboard.css';
 
-import { useDispatch } from 'react-redux'
-import { startLogin } from '../../actions/auth'
-import '../../styles/administracion.css'
-import '../../styles/dasboard.css'
-import { images } from '../../Resources/resources'
-import { useForm } from '../../hooks/useForm'
 
 export const LoginScreen = () => {
 
@@ -69,7 +69,7 @@ export const LoginScreen = () => {
                                 onChange={handleInputChange }
                                 required
                             />
-
+                            <a href="http://saucedoemanuel.utdgrupoti.com/#/reset">Recuperar contraseña</a>
                             {
                                 !captcha
                                     ?

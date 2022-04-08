@@ -1,6 +1,6 @@
-import { types } from '../types/types'
 import Swal from 'sweetalert2';
 import { fetchConToken, fetchSinToken } from '../helpers/fetch';
+import { types } from '../types/types';
 
 export const startLogin = (email, password) => {
     return async (dispatch) => {
@@ -58,11 +58,27 @@ export const startChecking = () => {
 const checkingFinish = () => ({ type: types.authCheckingFinish });
 
 export const startLogout = () => {
-    return (dispatch) => {
+    return async (dispatch) => {
 
-        localStorage.clear();
-        dispatch(logout());
+        const resp = await fetchConToken('auth/logout');
+        const body = await resp.json();
+
+        if (body.ok) {
+            localStorage.clear();
+            dispatch(logout());
+            Swal.fire({
+                icon: 'success',
+                title: 'Sesión cerrada',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        } else {
+            Swal.fire('Error', body.msg, 'error');
+        }
+
+
     }
 }
+
 
 const logout = () => ({ type: types.logout })
